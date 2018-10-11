@@ -1,0 +1,21 @@
+{
+  "name": "datamine_clone",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "build": "stencil build --prerender",
+    "start": "stencil build --dev --watch --serve --port 8080"
+  },
+  "author": "",
+  "dependencies": {
+    "@stencil/core": "^0.13.2",
+    "@stencil/router": "^0.3.0",
+    "async": "~0.2.8",
+    "express": "~3.2.4",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "socket.io": "~0.9.14"
+  },
+  "devDependencies": {},
+  "license": "ISC"
+}
