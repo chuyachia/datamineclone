@@ -25,20 +25,35 @@ export namespace Components {
     'text'?: string;
   }
 
+  interface AppPagination {
+    'maxSeq': number;
+    'nPage': number;
+  }
+  interface AppPaginationAttributes extends StencilHTMLAttributes {
+    'maxSeq'?: number;
+    'nPage'?: number;
+    'onChangePage'?: (event: CustomEvent) => void;
+  }
+
   interface AppTable {
     'bindData': (data: any) => void;
+    'nrowPage': number;
   }
-  interface AppTableAttributes extends StencilHTMLAttributes {}
+  interface AppTableAttributes extends StencilHTMLAttributes {
+    'nrowPage'?: number;
+  }
 }
 
 declare global {
   interface StencilElementInterfaces {
     'AppArrows': Components.AppArrows;
+    'AppPagination': Components.AppPagination;
     'AppTable': Components.AppTable;
   }
 
   interface StencilIntrinsicElements {
     'app-arrows': Components.AppArrowsAttributes;
+    'app-pagination': Components.AppPaginationAttributes;
     'app-table': Components.AppTableAttributes;
   }
 
@@ -49,6 +64,12 @@ declare global {
     new (): HTMLAppArrowsElement;
   };
 
+  interface HTMLAppPaginationElement extends Components.AppPagination, HTMLStencilElement {}
+  var HTMLAppPaginationElement: {
+    prototype: HTMLAppPaginationElement;
+    new (): HTMLAppPaginationElement;
+  };
+
   interface HTMLAppTableElement extends Components.AppTable, HTMLStencilElement {}
   var HTMLAppTableElement: {
     prototype: HTMLAppTableElement;
@@ -57,11 +78,13 @@ declare global {
 
   interface HTMLElementTagNameMap {
     'app-arrows': HTMLAppArrowsElement
+    'app-pagination': HTMLAppPaginationElement
     'app-table': HTMLAppTableElement
   }
 
   interface ElementTagNameMap {
     'app-arrows': HTMLAppArrowsElement;
+    'app-pagination': HTMLAppPaginationElement;
     'app-table': HTMLAppTableElement;
   }
 
