@@ -1,7 +1,9 @@
 import { Component, State, Prop, Method, Listen } from '@stencil/core';
 
 @Component({
-  tag: 'app-table'
+  tag: 'app-table',
+  styleUrl : 'app-table.css',
+  shadow:true
 })
 
 export class AppTable {
@@ -12,9 +14,16 @@ export class AppTable {
     @State() criteria:string = '';
     @State() selected: string[]=[];
     @State() curPage: number=1;
+    @State() modalOpen: boolean=false;
+    @State() infoData : any={};
+
     @Listen('changePage')
     changePageHandler(event:CustomEvent){
         this.curPage = event.detail;
+    }
+    @Listen('closeModal')
+    closeModalHandler(event:CustomEvent){
+        this.modalOpen = false;
     }
     @Method()
     bindData(data){
@@ -23,7 +32,19 @@ export class AppTable {
     componentDidUpdate() {
         this.curPageData = this.data.slice((this.curPage-1)*this.nrowPage,this.curPage*this.nrowPage);
     }
-    
+    handleProductClick = (evt)=>{
+        var el = evt.srcElement;
+        var data = {
+            product:el.getAttribute('data-product'),
+            exchange:el.getAttribute('data-exchange'),
+            category:el.getAttribute('data-category'),
+            symbol:el.getAttribute('data-symbol'),
+            foi:el.getAttribute('data-foi')
+        };
+        this.modalOpen = true;
+        this.infoData= data;
+            
+    }
     handleSortClick=(evt)=>{
         this.criteria = evt.srcElement.getAttribute('data-name');
         this.sortDir = this.sortDir=='desc'?'asc':'desc';
@@ -52,7 +73,12 @@ export class AppTable {
         return (
         <tr>
             <td><input type="checkbox" value={data.symbol} onChange={this.handleSelect}/></td>
-            <td>{data.product}</td>
+            <td><a href="#" data-product={data.product} 
+                data-exchange={data.exchange}
+                data-category={data.category}
+                data-symbol={data.symbol}
+                data-foi={data.foi}
+                onClick={this.handleProductClick}>{data.product}</a></td>
             <td></td>
             <td>{data.exchange}</td>
             <td>{data.category}</td>
@@ -91,7 +117,11 @@ export class AppTable {
             </tr>
         {this.curPageData.map(this.createDataRow)}
         </table>
-        <app-pagination max-seq={5} n-page={Math.ceil(this.data.length/this.nrowPage)}></app-pagination>
+        <div>Showing {(this.curPage-1)*this.nrowPage+1} to {this.curPage*this.nrowPage<this.data.length?this.curPage*this.nrowPage:this.data.length} of {this.data.length} entries</div>
+        <app-pagination class="pagination" max-seq={5} n-page={Math.ceil(this.data.length/this.nrowPage)}></app-pagination>
+        <app-modal modal-title="Product Information" open={this.modalOpen} confirmButton={false}>
+            <app-info-table data={this.infoData}></app-info-table>
+        </app-modal>
         </div>);
     }
 }

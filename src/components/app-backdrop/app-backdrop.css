@@ -1,0 +1,17 @@
+.backdrop {
+    position:fixed;
+    height:100%;
+    width:100%;
+    top:0px;
+    left:0px;
+    visibility:hidden;
+    background:rgba(204,204,204,0.3);
+    opacity:0;
+    z-index:5;
+    overflow-y:scroll;
+}
+
+.backdrop.open {
+    visibility:visible;
+    opacity:1;
+}

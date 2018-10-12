@@ -1,0 +1,24 @@
+.modal {
+    position:absolute;
+    margin-top:5%;
+    margin-bottom:5%;
+    margin-left:auto;
+    margin-right:auto;
+    width:90%;
+    left:0;
+    right:0;
+    z-index:10;
+    background:#fff;
+    display:initial;
+    opacity:1;
+}
+.closed {
+    display:none;
+    opacity:0;    
+}
+.close {
+    position:absolute;
+    right:0;
+    top:0;
+    cursor:pointer;
+}

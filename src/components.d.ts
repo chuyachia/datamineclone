@@ -25,6 +25,38 @@ export namespace Components {
     'text'?: string;
   }
 
+  interface AppBackdrop {
+    'open': boolean;
+  }
+  interface AppBackdropAttributes extends StencilHTMLAttributes {
+    'open'?: boolean;
+  }
+
+  interface AppInfoTable {
+    'data': any;
+  }
+  interface AppInfoTableAttributes extends StencilHTMLAttributes {
+    'data'?: any;
+  }
+
+  interface AppModal {
+    'closeButton': boolean;
+    'closeButtonText': string;
+    'confirmButton': boolean;
+    'confirmButtonText': string;
+    'modalTitle': string;
+    'open': boolean;
+  }
+  interface AppModalAttributes extends StencilHTMLAttributes {
+    'closeButton'?: boolean;
+    'closeButtonText'?: string;
+    'confirmButton'?: boolean;
+    'confirmButtonText'?: string;
+    'modalTitle'?: string;
+    'onCloseModal'?: (event: CustomEvent) => void;
+    'open'?: boolean;
+  }
+
   interface AppPagination {
     'maxSeq': number;
     'nPage': number;
@@ -47,12 +79,18 @@ export namespace Components {
 declare global {
   interface StencilElementInterfaces {
     'AppArrows': Components.AppArrows;
+    'AppBackdrop': Components.AppBackdrop;
+    'AppInfoTable': Components.AppInfoTable;
+    'AppModal': Components.AppModal;
     'AppPagination': Components.AppPagination;
     'AppTable': Components.AppTable;
   }
 
   interface StencilIntrinsicElements {
     'app-arrows': Components.AppArrowsAttributes;
+    'app-backdrop': Components.AppBackdropAttributes;
+    'app-info-table': Components.AppInfoTableAttributes;
+    'app-modal': Components.AppModalAttributes;
     'app-pagination': Components.AppPaginationAttributes;
     'app-table': Components.AppTableAttributes;
   }
@@ -62,6 +100,24 @@ declare global {
   var HTMLAppArrowsElement: {
     prototype: HTMLAppArrowsElement;
     new (): HTMLAppArrowsElement;
+  };
+
+  interface HTMLAppBackdropElement extends Components.AppBackdrop, HTMLStencilElement {}
+  var HTMLAppBackdropElement: {
+    prototype: HTMLAppBackdropElement;
+    new (): HTMLAppBackdropElement;
+  };
+
+  interface HTMLAppInfoTableElement extends Components.AppInfoTable, HTMLStencilElement {}
+  var HTMLAppInfoTableElement: {
+    prototype: HTMLAppInfoTableElement;
+    new (): HTMLAppInfoTableElement;
+  };
+
+  interface HTMLAppModalElement extends Components.AppModal, HTMLStencilElement {}
+  var HTMLAppModalElement: {
+    prototype: HTMLAppModalElement;
+    new (): HTMLAppModalElement;
   };
 
   interface HTMLAppPaginationElement extends Components.AppPagination, HTMLStencilElement {}
@@ -78,12 +134,18 @@ declare global {
 
   interface HTMLElementTagNameMap {
     'app-arrows': HTMLAppArrowsElement
+    'app-backdrop': HTMLAppBackdropElement
+    'app-info-table': HTMLAppInfoTableElement
+    'app-modal': HTMLAppModalElement
     'app-pagination': HTMLAppPaginationElement
     'app-table': HTMLAppTableElement
   }
 
   interface ElementTagNameMap {
     'app-arrows': HTMLAppArrowsElement;
+    'app-backdrop': HTMLAppBackdropElement;
+    'app-info-table': HTMLAppInfoTableElement;
+    'app-modal': HTMLAppModalElement;
     'app-pagination': HTMLAppPaginationElement;
     'app-table': HTMLAppTableElement;
   }
