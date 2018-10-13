@@ -10,7 +10,7 @@ export class AppPagination {
     @Prop() nPage:number;
     @Prop() maxSeq:number;
     @State() showedPages: number[]=[];
-    @State() curPage: number = 1;
+    @Prop() curPage: number;
     @Event() changePage: EventEmitter;
     
     changeShowedPages=(page)=>{
@@ -43,21 +43,18 @@ export class AppPagination {
     }
     handleNextClick=()=>{
         if (this.curPage<this.nPage) {
-            this.curPage+=1;
-            this.changePage.emit(this.curPage);
+            this.changePage.emit(this.curPage+1);
         }
     }
     handlePrevClick=()=>{
         if (this.curPage>1) {
-            this.curPage-=1;
-            this.changePage.emit(this.curPage);
+            this.changePage.emit(this.curPage-1);
         }
     }
     handlePageClick=(evt)=>{
         var page =  parseInt(evt.srcElement.getAttribute('data-page'));
         if (page>0){
-            this.curPage = page;
-            this.changePage.emit(this.curPage);
+            this.changePage.emit(page);
         }
     }
     

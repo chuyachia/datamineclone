@@ -1,81 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
         <title>Datamine</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <script src="/build/app.js"></script>
-    </head>
-    <body>
-        <app-table nrow-page="8"></app-table>
+</head>
+
+<body>
+        <app-main nrow-page="8"></app-table>
+        <script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
         <script>
-        // data is here https://cdn.glitch.com/1e8c939e-c923-420c-b9e8-e4fed617755f%2Fproductsheet.csv
-            var el = document.querySelector('app-table');
-            el.componentOnReady().then(function(){
-                el.bindData([{
-                        product:'1',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'aaa',
-                        foi:'s'
-                },{
-                        product:'2',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'bbb',
-                        foi:'s'
-                },{
-                        product:'3',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'aaa',
-                        foi:'s'
-                },{
-                        product:'4',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'bbb',
-                        foi:'s'
-                },{
-                        product:'5',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'aaa',
-                        foi:'s'
-                },{
-                        product:'6',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'bbb',
-                        foi:'s'
-                },{
-                        product:'7',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'aaa',
-                        foi:'s'
-                },{
-                        product:'8',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'bbb',
-                        foi:'s'
-                },{
-                        product:'9',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'aaa',
-                        foi:'s'
-                },{
-                        product:'10',
-                        exchange:'exchange',
-                        category:'cat',
-                        symbol:'bbb',
-                        foi:'s'
-                }]);                
-            });
 
         </script>
-    </body>
+</body>
+
 </html>

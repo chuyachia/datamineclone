@@ -32,11 +32,24 @@ export namespace Components {
     'open'?: boolean;
   }
 
+  interface AppControl {}
+  interface AppControlAttributes extends StencilHTMLAttributes {
+    'onNewInstrumType'?: (event: CustomEvent) => void;
+    'onNewSearch'?: (event: CustomEvent) => void;
+  }
+
   interface AppInfoTable {
     'data': any;
   }
   interface AppInfoTableAttributes extends StencilHTMLAttributes {
     'data'?: any;
+  }
+
+  interface AppMain {
+    'nrowPage': number;
+  }
+  interface AppMainAttributes extends StencilHTMLAttributes {
+    'nrowPage'?: number;
   }
 
   interface AppModal {
@@ -58,21 +71,15 @@ export namespace Components {
   }
 
   interface AppPagination {
+    'curPage': number;
     'maxSeq': number;
     'nPage': number;
   }
   interface AppPaginationAttributes extends StencilHTMLAttributes {
+    'curPage'?: number;
     'maxSeq'?: number;
     'nPage'?: number;
     'onChangePage'?: (event: CustomEvent) => void;
-  }
-
-  interface AppTable {
-    'bindData': (data: any) => void;
-    'nrowPage': number;
-  }
-  interface AppTableAttributes extends StencilHTMLAttributes {
-    'nrowPage'?: number;
   }
 }
 
@@ -80,19 +87,21 @@ declare global {
   interface StencilElementInterfaces {
     'AppArrows': Components.AppArrows;
     'AppBackdrop': Components.AppBackdrop;
+    'AppControl': Components.AppControl;
     'AppInfoTable': Components.AppInfoTable;
+    'AppMain': Components.AppMain;
     'AppModal': Components.AppModal;
     'AppPagination': Components.AppPagination;
-    'AppTable': Components.AppTable;
   }
 
   interface StencilIntrinsicElements {
     'app-arrows': Components.AppArrowsAttributes;
     'app-backdrop': Components.AppBackdropAttributes;
+    'app-control': Components.AppControlAttributes;
     'app-info-table': Components.AppInfoTableAttributes;
+    'app-main': Components.AppMainAttributes;
     'app-modal': Components.AppModalAttributes;
     'app-pagination': Components.AppPaginationAttributes;
-    'app-table': Components.AppTableAttributes;
   }
 
 
@@ -108,10 +117,22 @@ declare global {
     new (): HTMLAppBackdropElement;
   };
 
+  interface HTMLAppControlElement extends Components.AppControl, HTMLStencilElement {}
+  var HTMLAppControlElement: {
+    prototype: HTMLAppControlElement;
+    new (): HTMLAppControlElement;
+  };
+
   interface HTMLAppInfoTableElement extends Components.AppInfoTable, HTMLStencilElement {}
   var HTMLAppInfoTableElement: {
     prototype: HTMLAppInfoTableElement;
     new (): HTMLAppInfoTableElement;
+  };
+
+  interface HTMLAppMainElement extends Components.AppMain, HTMLStencilElement {}
+  var HTMLAppMainElement: {
+    prototype: HTMLAppMainElement;
+    new (): HTMLAppMainElement;
   };
 
   interface HTMLAppModalElement extends Components.AppModal, HTMLStencilElement {}
@@ -126,28 +147,24 @@ declare global {
     new (): HTMLAppPaginationElement;
   };
 
-  interface HTMLAppTableElement extends Components.AppTable, HTMLStencilElement {}
-  var HTMLAppTableElement: {
-    prototype: HTMLAppTableElement;
-    new (): HTMLAppTableElement;
-  };
-
   interface HTMLElementTagNameMap {
     'app-arrows': HTMLAppArrowsElement
     'app-backdrop': HTMLAppBackdropElement
+    'app-control': HTMLAppControlElement
     'app-info-table': HTMLAppInfoTableElement
+    'app-main': HTMLAppMainElement
     'app-modal': HTMLAppModalElement
     'app-pagination': HTMLAppPaginationElement
-    'app-table': HTMLAppTableElement
   }
 
   interface ElementTagNameMap {
     'app-arrows': HTMLAppArrowsElement;
     'app-backdrop': HTMLAppBackdropElement;
+    'app-control': HTMLAppControlElement;
     'app-info-table': HTMLAppInfoTableElement;
+    'app-main': HTMLAppMainElement;
     'app-modal': HTMLAppModalElement;
     'app-pagination': HTMLAppPaginationElement;
-    'app-table': HTMLAppTableElement;
   }
 
 
