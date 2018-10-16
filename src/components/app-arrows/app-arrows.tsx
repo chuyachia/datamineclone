@@ -21,7 +21,7 @@ export class AppArrows {
         }
     }
     render(){
-        return(<a href="#" class={this.arrowDir}>{this.text}</a>)
+        return(<span class={this.arrowDir}>{this.text}</span>)
     }
     
 }

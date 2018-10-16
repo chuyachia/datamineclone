@@ -1,0 +1,20 @@
+table {
+    background-color:var(--app-black);
+    border-spacing:1px;
+    width:100%;
+}
+
+th {
+    padding:10px;
+}
+tr:nth-child(even) {
+    background-color:var(--app-light-grey);
+}
+tr:nth-child(odd) {
+    background-color:white;
+}
+
+tr:first-child {
+    background-color:var(--app-black);
+    color:white;
+}

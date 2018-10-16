@@ -3,12 +3,27 @@ ul {
     padding-left:0;
 }
 li {
-    display:inline;
+    display:inline-block;
+    border-top:1px solid var(--app-black);
+    border-bottom:1px solid var(--app-black);
+    border-right:1px solid var(--app-black);
+    padding:5px;
 }
-
+li:first-child {
+    border-left:1px solid var(--app-black);
+    border-radius:3px 0px 0px 3px;
+}
+li:last-child {
+    border-radius:0px 3px 3px 0px;
+}
 .un-clickable {
     cursor: not-allowed;
 }
 .cur-page {
-    background:grey;
+    background-color:var(--app-black);
+    color:white;
+}
+
+span {
+    cursor:pointer;
 }

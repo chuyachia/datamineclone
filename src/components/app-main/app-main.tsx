@@ -91,7 +91,7 @@ export class AppTable {
         this.curPageData = filteredData.slice((this.curPage-1)*this.nrowPage,this.curPage*this.nrowPage);        
     }
     componentWillLoad(){
-        getData('https://cdn.glitch.com/1e8c939e-c923-420c-b9e8-e4fed617755f%2Fproductsheet.csv')
+       /* getData('https://cdn.glitch.com/1e8c939e-c923-420c-b9e8-e4fed617755f%2Fproductsheet.csv')
         .then((response)=>{
             csv({
                 delimiter:';',
@@ -118,7 +118,7 @@ export class AppTable {
             })
         }).catch(function(error){
             console.log(error);
-        })
+        })*/
     }
     handleProductClick = (evt)=>{
         var el = evt.srcElement;
@@ -171,7 +171,7 @@ export class AppTable {
         return (
         <div>
         <table>
-            <tr>
+            <tr class="table-head">
                 <th></th>
                 <th>
                     <app-arrows text="Product Name" data-name="product" selected={this.criteria=="product"} direction={this.sortDir}

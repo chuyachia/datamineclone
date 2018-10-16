@@ -1,9 +1,10 @@
-a {
+span {
     position:relative;
     padding-right:10px;
+    cursor:pointer;
 }
-a:before,
-a:after {
+span:before,
+span:after {
     border:4px solid transparent;
     content:"";
     position:absolute;
@@ -11,18 +12,18 @@ a:after {
     right:0px;
 }
 
-a:before {
+span:before {
     margin-top:-9px;
     border-bottom-color:grey;
 }
 
-a:after {
+span:after {
     border-top-color:grey;
 }
 
-a.desc:before {
+span.desc:before {
     border-bottom-color:transparent;
 }
-a.asc:after {
+span.asc:after {
     border-top-color:transparent;
 }
