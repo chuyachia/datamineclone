@@ -1,7 +1,29 @@
+main {
+    display:flex;
+    flex-flow:row wrap;
+    padding:5px;
+    align-items:stretch;
+}
+.app-control {
+    padding:5px;
+    flex:1 0px;
+}
+
+.app-content {
+    padding:5px;
+    flex:4 0px;
+    display:flex;
+    flex-flow:row wrap;
+    align-items:center;
+    justify-content:space-between;
+} 
+
+
 table {
     background-color:var(--app-black);
     border-spacing:1px;
     width:100%;
+    flex:1 0 auto;
 }
 
 th {

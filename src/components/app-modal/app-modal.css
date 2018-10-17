@@ -11,6 +11,8 @@
     background:#fff;
     display:initial;
     opacity:1;
+    padding:10px;
+    border-radius:3px;
 }
 .closed {
     display:none;
@@ -18,7 +20,25 @@
 }
 .close {
     position:absolute;
-    right:0;
-    top:0;
+    right:10px;
+    top:10px;
     cursor:pointer;
+}
+
+.btn {
+    background:var(--app-black);
+    color:white;
+    border-width:0px;
+    border-radius:3px;
+    padding:5px;
+    margin-top:3px;
+    cursor:pointer;
+}
+
+.btn:active {
+   background:var(--app-deep-grey); 
+}
+
+.btn:focus {
+  outline: 0;
 }

@@ -15,7 +15,11 @@ export class AppPagination {
     
     changeShowedPages=(page)=>{
         var newShowed=[];
-        if (page-1<this.maxSeq-1){
+        if (this.nPage<=7){
+            for(let i = 1;i<=this.nPage;i++){
+                newShowed.push(i);
+            }
+        } else if (page-1<this.maxSeq-1){
             var maxPage= Math.min(this.maxSeq,this.nPage);
             for(let i = 1;i<=maxPage;i++){
                 newShowed.push(i);

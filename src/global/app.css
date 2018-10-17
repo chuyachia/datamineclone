@@ -6,7 +6,9 @@ body {
     margin:0px;
     padding:0px;
     font: 13px/20px PTSansRegular,Arial,Helvetica,sans-serif;
+
 }
+
 
 :root {
     --app-blue: #488aff;
@@ -15,3 +17,4 @@ body {
     --app-black:#000000;
     --app-red:#f41000;
 }
+

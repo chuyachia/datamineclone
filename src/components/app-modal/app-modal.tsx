@@ -26,8 +26,8 @@ export class AppModal {
                 <span class="close" onClick={this.handleCloseClick}>x</span>
                 <hr/>
                 <slot/>
-                {this.closeButton&&<button onClick={this.handleCloseClick}>{this.closeButtonText}</button>}
-                {this.confirmButton&&<button>{this.confirmButtonText}</button>}
+                {this.closeButton&&<button class="btn" onClick={this.handleCloseClick}>{this.closeButtonText}</button>}
+                {this.confirmButton&&<button class="btn">{this.confirmButtonText}</button>}
             </div>
         </app-backdrop>)
     }

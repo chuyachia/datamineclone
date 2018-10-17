@@ -32,10 +32,15 @@ export namespace Components {
     'open'?: boolean;
   }
 
-  interface AppControl {}
+  interface AppControl {
+    'selectedCats': string[];
+    'selectedExs': string[];
+  }
   interface AppControlAttributes extends StencilHTMLAttributes {
     'onNewInstrumType'?: (event: CustomEvent) => void;
     'onNewSearch'?: (event: CustomEvent) => void;
+    'selectedCats'?: string[];
+    'selectedExs'?: string[];
   }
 
   interface AppInfoTable {
@@ -70,6 +75,24 @@ export namespace Components {
     'open'?: boolean;
   }
 
+  interface AppMultiSelect {
+    'options': string[];
+    'optionsLength': number;
+    'selectedItems': string[];
+    'show': boolean;
+  }
+  interface AppMultiSelectAttributes extends StencilHTMLAttributes {
+    'onDeleteSelect'?: (event: CustomEvent) => void;
+    'onFilterOptions'?: (event: CustomEvent) => void;
+    'onHideOptions'?: (event: CustomEvent) => void;
+    'onInputFocus'?: (event: CustomEvent) => void;
+    'onNewSelect'?: (event: CustomEvent) => void;
+    'options'?: string[];
+    'optionsLength'?: number;
+    'selectedItems'?: string[];
+    'show'?: boolean;
+  }
+
   interface AppPagination {
     'curPage': number;
     'maxSeq': number;
@@ -91,6 +114,7 @@ declare global {
     'AppInfoTable': Components.AppInfoTable;
     'AppMain': Components.AppMain;
     'AppModal': Components.AppModal;
+    'AppMultiSelect': Components.AppMultiSelect;
     'AppPagination': Components.AppPagination;
   }
 
@@ -101,6 +125,7 @@ declare global {
     'app-info-table': Components.AppInfoTableAttributes;
     'app-main': Components.AppMainAttributes;
     'app-modal': Components.AppModalAttributes;
+    'app-multi-select': Components.AppMultiSelectAttributes;
     'app-pagination': Components.AppPaginationAttributes;
   }
 
@@ -141,6 +166,12 @@ declare global {
     new (): HTMLAppModalElement;
   };
 
+  interface HTMLAppMultiSelectElement extends Components.AppMultiSelect, HTMLStencilElement {}
+  var HTMLAppMultiSelectElement: {
+    prototype: HTMLAppMultiSelectElement;
+    new (): HTMLAppMultiSelectElement;
+  };
+
   interface HTMLAppPaginationElement extends Components.AppPagination, HTMLStencilElement {}
   var HTMLAppPaginationElement: {
     prototype: HTMLAppPaginationElement;
@@ -154,6 +185,7 @@ declare global {
     'app-info-table': HTMLAppInfoTableElement
     'app-main': HTMLAppMainElement
     'app-modal': HTMLAppModalElement
+    'app-multi-select': HTMLAppMultiSelectElement
     'app-pagination': HTMLAppPaginationElement
   }
 
@@ -164,6 +196,7 @@ declare global {
     'app-info-table': HTMLAppInfoTableElement;
     'app-main': HTMLAppMainElement;
     'app-modal': HTMLAppModalElement;
+    'app-multi-select': HTMLAppMultiSelectElement;
     'app-pagination': HTMLAppPaginationElement;
   }
 
