@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter, Element } from '@stencil/core';
+import { Component, Prop,  Event, EventEmitter, Element } from '@stencil/core';
 
 @Component({
     tag:'app-multi-select',

@@ -14,4 +14,10 @@
 .backdrop.open {
     visibility:visible;
     opacity:1;
+    transition-delay:0s;
 }
+
+.backdrop {
+    transition:visibility 0s linear 0.3s,opacity 0.3s linear;
+}
+

@@ -16,7 +16,11 @@ li:first-child {
 li:last-child {
     border-radius:0px 3px 3px 0px;
 }
-.un-clickable {
+
+li:not(.unclickable):not(.cur-page):hover{
+    background-color:var(--app-light-blue);
+}
+.unclickable>span {
     cursor: not-allowed;
 }
 .cur-page {

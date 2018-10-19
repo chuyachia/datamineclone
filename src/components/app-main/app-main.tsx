@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method, Listen } from '@stencil/core';
+import { Component, State, Prop, Listen } from '@stencil/core';
 import csv from 'csvtojson';
 import getData from '../../util/getData.js';
 @Component({
@@ -260,6 +260,7 @@ export class AppTable {
         return (
         <main>
             <app-backdrop open={this.data.length==0}>
+                <div class="loaderwrap"><p class="loader">Loading</p></div>
             </app-backdrop>
             <app-control class="app-control"
             instrumType={this.instrumType}

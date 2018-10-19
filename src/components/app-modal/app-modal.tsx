@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter, Element } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, Element } from '@stencil/core';
 
 @Component({
     tag:'app-modal',
@@ -22,7 +22,7 @@ export class AppModal {
     render(){
         return (
         <app-backdrop open={this.open}>
-            <div class="modal">
+            <div class={`modal ${this.open?"show":""}`}>
                 <h2>{this.modalTitle}</h2>
                 <span class="close" onClick={this.handleCloseClick}><strong>x</strong></span>
                 <hr/>

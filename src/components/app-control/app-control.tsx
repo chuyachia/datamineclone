@@ -1,4 +1,4 @@
-import { Component, State, Prop, Event, EventEmitter, Listen, Watch } from '@stencil/core';
+import { Component, State, Prop, Event, EventEmitter, Listen } from '@stencil/core';
 
 @Component({
     tag:'app-control',
@@ -25,7 +25,7 @@ export class AppControl {
     @Event() newInstrumType:EventEmitter;
     @Event() resetFilter:EventEmitter;
     @Listen('newProductLevel')
-    handleNewProductLevel(event:CustomEvent) {
+    handleNewProductLevel() {
         this.showedCats =  this.categoryList;
         this.showedExs = this.exchangeList;
     }

@@ -4,16 +4,20 @@
   "description": "",
   "scripts": {
     "build": "stencil build --prerender",
-    "start": "stencil build --dev --watch --serve --port 8080"
+    "start-dev": "stencil build --dev --watch --serve --port 8080",
+    "start": "NODE_ENV=production node server.js"
   },
   "author": "",
   "dependencies": {
     "@stencil/core": "^0.13.2",
     "@stencil/router": "^0.3.0",
+    "@types/node": "^10.12.0",
     "csvtojson": "^2.0.8",
-    "express": "~3.2.4",
-    "node-sass": "^4.9.3"
+    "express": "~3.2.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0"
+  },
   "license": "ISC"
 }

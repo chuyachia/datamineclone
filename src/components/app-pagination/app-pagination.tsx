@@ -62,8 +62,8 @@ export class AppPagination {
         }
     }
     
-    createPages=(page)=>(<li class={page==this.curPage?'cur-page':''}>
-    <span data-page={page} class={page<0?'un-clickable':''} onClick={this.handlePageClick}>{page>0?page:'...'}</span>
+    createPages=(page)=>(<li class={`${page==this.curPage?'cur-page':''} ${page<0?'unclickable':''}`}>
+    <span data-page={page} onClick={this.handlePageClick}>{page>0?page:'...'}</span>
     </li>)
     
     componentDidUpdate() {
@@ -73,12 +73,12 @@ export class AppPagination {
     render(){
         return(
             <ul>
-                <li>
-                    <span class={this.curPage==1?'un-clickable':''} onClick={this.handlePrevClick}>Previous</span>
+                <li class={this.curPage==1?'unclickable':''} >
+                    <span onClick={this.handlePrevClick}>Previous</span>
                 </li>
                 {this.showedPages.map(this.createPages)}
-                <li>
-                    <span class={this.curPage==this.nPage?'un-clickable':''} onClick={this.handleNextClick}>Next</span>
+                <li class={this.curPage==this.nPage?'unclickable':''}>
+                    <span onClick={this.handleNextClick}>Next</span>
                 </li>
             </ul>)
     }
