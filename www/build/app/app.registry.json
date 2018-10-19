@@ -1,0 +1,62 @@
+{
+  "namespace": "App",
+  "fsNamespace": "app",
+  "loader": "../app.js",
+  "core": "app.vzfnsd8j.js",
+  "corePolyfilled": "app.80ltggaf.js",
+  "components": {
+    "app-arrows": {
+      "bundleIds": {
+        "$": "p1rzoumr"
+      },
+      "encapsulation": "shadow"
+    },
+    "app-backdrop": {
+      "bundleIds": {
+        "$": "ghco7o7w"
+      },
+      "encapsulation": "shadow"
+    },
+    "app-button": {
+      "bundleIds": {
+        "$": "ghco7o7w"
+      },
+      "encapsulation": "shadow"
+    },
+    "app-control": {
+      "bundleIds": {
+        "$": "6uiqlv0k"
+      },
+      "encapsulation": "shadow"
+    },
+    "app-info-table": {
+      "bundleIds": {
+        "$": "p1rzoumr"
+      }
+    },
+    "app-main": {
+      "bundleIds": {
+        "$": "p1rzoumr"
+      },
+      "encapsulation": "shadow"
+    },
+    "app-modal": {
+      "bundleIds": {
+        "$": "p1rzoumr"
+      },
+      "encapsulation": "shadow"
+    },
+    "app-multi-select": {
+      "bundleIds": {
+        "$": "6uiqlv0k"
+      },
+      "encapsulation": "shadow"
+    },
+    "app-pagination": {
+      "bundleIds": {
+        "$": "p1rzoumr"
+      },
+      "encapsulation": "shadow"
+    }
+  }
+}

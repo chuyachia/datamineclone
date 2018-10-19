@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Datamine</title>
+        <link href="/build/app.css" rel="stylesheet">
+        <script src="/build/app.js"></script>
+</head>
+
+<body>
+        <app-main nrow-page="25"></app-main>
+<script data-build="2018-09-19T21:14:41">
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(reg) {
+            reg.onupdatefound = function() {
+              var installingWorker = reg.installing;
+              installingWorker.onstatechange = function() {
+                if (installingWorker.state === 'installed') {
+                  window.dispatchEvent(new Event('swUpdate'))
+                }
+              }
+            }
+          })
+          .catch(function(err) { console.error('service worker error', err) });
+      });
+    }
+</script>
+</body>
+
+</html>
