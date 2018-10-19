@@ -9,7 +9,6 @@
     right:0;
     z-index:10;
     background:#fff;
-    display:initial;
     opacity:1;
     padding:10px;
     border-radius:3px;
@@ -23,22 +22,12 @@
     right:10px;
     top:10px;
     cursor:pointer;
+    color:lightgrey;
+}
+.close:hover {
+    color:var(--app-deep-grey);
 }
 
-.btn {
-    background:var(--app-black);
-    color:white;
-    border-width:0px;
-    border-radius:3px;
-    padding:5px;
-    margin-top:3px;
-    cursor:pointer;
-}
-
-.btn:active {
-   background:var(--app-deep-grey); 
-}
-
-.btn:focus {
-  outline: 0;
+app-button {
+    float:right;
 }

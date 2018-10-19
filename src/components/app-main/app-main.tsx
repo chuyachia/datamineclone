@@ -14,7 +14,8 @@ export class AppTable {
     @State() criteria:string = null;
     @State() selected: string[]=[];
     @State() curPage: number=1;
-    @State() modalOpen: boolean=false;
+    @State() infoModalOpen: boolean=false;
+    @State() selectModalOpen: boolean=false;
     @State() infoData : any={};
     @State() searchTerm : string='';
     @State() instrumType:string[]=[];
@@ -22,7 +23,7 @@ export class AppTable {
     @State() exchange:string[]=[];
     @State() curPageData :ProductData[] = [];
     @State() dataLength: number = this.data.length;
-
+    @State() productLevel:string="individual";
     @Listen('changePage')
     changePageHandler(event:CustomEvent){
         this.curPage = event.detail;
@@ -30,16 +31,16 @@ export class AppTable {
     }
     @Listen('closeModal')
     closeModalHandler(event:CustomEvent){
-        this.modalOpen = false;
+        if (event.detail=="product-select") {
+            this.selectModalOpen = false;
+        } else if (event.detail=="product-info") {
+            this.infoModalOpen = false;
+        }
     }
     @Listen('newSearch')
     newSearchHandler(event:CustomEvent){
         this.curPage = 1;
-        if (event.detail.length>1) {
-            this.searchTerm = event.detail;
-        } else {
-            this.searchTerm='';
-        }
+        this.searchTerm = event.detail;
         this.updateShowedData();
     }
     @Listen('newInstrumType')
@@ -67,6 +68,16 @@ export class AppTable {
         this.curPage = 1;
         this.updateShowedData();
     }
+    @Listen('newProductLevel')
+    handleNewProducLevel(event:CustomEvent) {
+        this.productLevel = event.detail;
+        this.instrumType = [];
+        this.category = [];
+        this.exchange = [];
+        this.searchTerm ='';
+        this.curPage = 1;
+        this.updateShowedData();
+    }
     @Listen('deleteSelect')
     handleDeleteSelect(event:CustomEvent) {
         var data,id;
@@ -81,15 +92,32 @@ export class AppTable {
         this.curPage = 1;
         this.updateShowedData();
     }
+    @Listen('resetFilter')
+    handleResetFilter(){
+        this.productLevel = 'individual'
+        this.instrumType = [];
+        this.category = [];
+        this.searchTerm ='';  
+        this.curPage = 1;
+        this.updateShowedData();
+    }
     updateShowedData=()=>{
         var filteredData = this.data;
-        if (this.searchTerm!=''||this.instrumType.length>0||this.category.length>0) {
+        if (this.searchTerm.length>1||this.instrumType.length>0||this.category.length>0||this.productLevel!==null) {
             var target = RegExp(this.searchTerm,'i');
             filteredData = this.data.filter((row)=>{
+                var level;
                 var term = target.test(row.product)||target.test(row.symbol);
                 var instrum;
                 var instrumSum= 0;
                 var cat;
+                if (this.productLevel=='individual'){
+                    level = !/Complete/.test(row.product)
+                } else if (this.productLevel=='complete') {
+                    level = /Complete Exchange/.test(row.product)
+                } else if (this.productLevel=='all') {
+                    level = /Complete all/.test(row.product)
+                }
                 this.instrumType.forEach(function(type){
                     instrumSum+=row[type];
                 })
@@ -106,7 +134,7 @@ export class AppTable {
                 } else {
                     cat = this.category.indexOf(row.category)>=0;
                 }
-                return term&&instrum&&cat;
+                return term&&instrum&&cat&&level;
             });
 
         }
@@ -125,7 +153,7 @@ export class AppTable {
         this.curPageData = filteredData.slice((this.curPage-1)*this.nrowPage,this.curPage*this.nrowPage);        
     }
     componentWillLoad(){
-        getData('https://cdn.glitch.com/1e8c939e-c923-420c-b9e8-e4fed617755f%2Fproductsheet.csv')
+        /*getData('https://cdn.glitch.com/1e8c939e-c923-420c-b9e8-e4fed617755f%2Fproductsheet.csv')
         .then((response)=>{
             csv({
                 delimiter:';',
@@ -144,7 +172,7 @@ export class AppTable {
                         option:row.FOI=="OPT"?true:false
                     }
                 }).filter(function(row){
-                    return row.product.length>0&&row.symbol!='null';
+                    return row.product.length>0&&row.symbol.length>0&&row.symbol!='null';
                 })
             }).then((cleaned)=>{
                 this.data = cleaned;
@@ -152,8 +180,8 @@ export class AppTable {
             })
         }).catch(function(error){
             console.log(error);
-        })
-        /*this.data = [{
+        })*/
+        this.data = [{
             product:'a',
             exchange:'a',
             category:'AGRICULTURE',
@@ -172,7 +200,7 @@ export class AppTable {
             future:true,
             option:false            
         }];
-        this.updateShowedData();*/       
+        this.updateShowedData();
     }
     handleProductClick = (evt)=>{
         var el = evt.srcElement;
@@ -183,7 +211,7 @@ export class AppTable {
             symbol:el.getAttribute('data-symbol'),
             foi:el.getAttribute('data-foi')
         };
-        this.modalOpen = true;
+        this.infoModalOpen = true;
         this.infoData= data;
             
     }
@@ -195,18 +223,25 @@ export class AppTable {
     
     handleSelect=(evt)=>{
         var target = evt.target.value;
+        console.log(target);
         var indx = this.selected.indexOf(target);
         if (indx==-1){
             this.selected = [...this.selected,target];   
         } else {
-            this.selected = this.selected.slice(0,indx).concat(this.selected.slice(indx));
+            this.selected = this.selected.slice(0,indx).concat(this.selected.slice(indx+1));
         }
     }
-    
+    addSelection =()=>{
+        this.selectModalOpen = true;
+    }
+    clearSelection=()=>{
+        this.selected=[];
+    }
     createDataRow=(data)=>{
         return (
         <tr>
-            <td><input type="checkbox" value={data.symbol} onChange={this.handleSelect}/></td>
+            <td><input type="checkbox" value={data.product} onChange={this.handleSelect}
+            checked={this.selected.indexOf(data.product)>=0}/></td>
             <td><a href="#" data-product={data.product} 
                 data-exchange={data.exchange}
                 data-category={data.category}
@@ -226,8 +261,17 @@ export class AppTable {
         <main>
             <app-backdrop open={this.data.length==0}>
             </app-backdrop>
-            <app-control class="app-control" selectedCats={this.category} selectedExs={this.exchange}></app-control>
+            <app-control class="app-control"
+            instrumType={this.instrumType}
+            searchTerm ={this.searchTerm}
+            selectedCats={this.category} 
+            selectedExs={this.exchange}
+            productLevel={this.productLevel}></app-control>
             <section class="app-content">
+                <div>
+                    <app-button type="highlight" onClick={this.addSelection} disabled={this.selected.length==0}>Add Selected and Continue</app-button>
+                    <app-button type="cancel" onClick={this.clearSelection}>Clear All Selected</app-button>
+                </div>
                 <table>
                     <tr class="table-head">
                         <th></th>
@@ -255,11 +299,14 @@ export class AppTable {
                     </tr>
                 {this.curPageData.map(this.createDataRow)}
                 </table>
-                <div>Showing {(this.curPage-1)*this.nrowPage+1} to {this.curPage*this.nrowPage<this.dataLength?this.curPage*this.nrowPage:this.dataLength} of {this.dataLength} entries</div>
-                <app-pagination class="pagination" maxSeq={5} nPage={Math.ceil(this.dataLength/this.nrowPage)} curPage={this.curPage}>
-                </app-pagination>
+                <div>Showing {this.dataLength==0?0:(this.curPage-1)*this.nrowPage+1} to {this.curPage*this.nrowPage<this.dataLength?this.curPage*this.nrowPage:this.dataLength} of {this.dataLength} entries</div>
+                <app-pagination class="pagination" maxSeq={5} nPage={Math.ceil(this.dataLength/this.nrowPage)} curPage={this.curPage}/>
             </section>
-        <app-modal modal-title="Product Information" open={this.modalOpen} confirmButton={false}>
+        <app-modal id="product-select" modal-title="Product Selection" open={this.selectModalOpen} confirmButton={true} confirmButtonText="Add to Cart">
+            <p>You have selected {this.selected.length} product(s).</p>
+            <p>Please choose the data type and range. They will be applied to all selected products.</p>
+        </app-modal>
+        <app-modal id="product-info" modal-title="Product Information" open={this.infoModalOpen} confirmButton={false}>
             <app-info-table data={this.infoData}></app-info-table>
         </app-modal>
         </main>);

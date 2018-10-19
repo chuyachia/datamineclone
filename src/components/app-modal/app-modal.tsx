@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter } from '@stencil/core';
+import { Component, Prop, State, Event, EventEmitter, Element } from '@stencil/core';
 
 @Component({
     tag:'app-modal',
@@ -7,6 +7,7 @@ import { Component, Prop, State, Event, EventEmitter } from '@stencil/core';
 })
 
 export class AppModal {
+    @Element() el: HTMLElement;
     @Prop() modalTitle:string;
     @Prop() closeButton:boolean=true;
     @Prop() confirmButton:boolean=true;
@@ -15,7 +16,7 @@ export class AppModal {
     @Prop() open:boolean;
     @Event() closeModal: EventEmitter;
     handleCloseClick=()=>{
-        this.closeModal.emit('');
+        this.closeModal.emit(this.el.id);
     };
     
     render(){
@@ -23,11 +24,11 @@ export class AppModal {
         <app-backdrop open={this.open}>
             <div class="modal">
                 <h2>{this.modalTitle}</h2>
-                <span class="close" onClick={this.handleCloseClick}>x</span>
+                <span class="close" onClick={this.handleCloseClick}><strong>x</strong></span>
                 <hr/>
                 <slot/>
-                {this.closeButton&&<button class="btn" onClick={this.handleCloseClick}>{this.closeButtonText}</button>}
-                {this.confirmButton&&<button class="btn">{this.confirmButtonText}</button>}
+                {this.closeButton&&<app-button type="cancel" onClick={this.handleCloseClick}>{this.closeButtonText}</app-button>}
+                {this.confirmButton&&<app-button>{this.confirmButtonText}</app-button>}
             </div>
         </app-backdrop>)
     }

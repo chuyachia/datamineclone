@@ -14,11 +14,11 @@ span:after {
 
 span:before {
     margin-top:-9px;
-    border-bottom-color:grey;
+    border-bottom-color:white;
 }
 
 span:after {
-    border-top-color:grey;
+    border-top-color:white;
 }
 
 span.desc:before {

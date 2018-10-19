@@ -7,7 +7,16 @@
     border:1px solid var(--app-black);
     border-radius:3px;
     cursor:text;
-    margin:0;
+    margin-top:3px;
+}
+label {
+    display:block;
+    padding-left:20px;
+    vertical-align: baseline
+}
+input[type="radio"], input[type="checkbox"] {
+    margin-left:-20px;
+    position:absolute;
 }
 .text-input{
     background-color: transparent;
@@ -18,4 +27,7 @@
 }
 .text-input:focus {
     outline: 0;
+}
+button {
+
 }

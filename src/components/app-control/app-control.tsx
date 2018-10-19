@@ -15,31 +15,35 @@ export class AppControl {
     @State() showExOptions:boolean=false;
     @State() focusCatOptions:boolean=false;
     @State() focusExOptions:boolean=false;
+    @Prop() searchTerm:string='';
+    @Prop() instrumType:string[];
     @Prop() selectedCats:string[];
     @Prop() selectedExs:string[];
+    @Prop() productLevel:string;
+    @Event() newProductLevel:EventEmitter;
     @Event() newSearch:EventEmitter;
     @Event() newInstrumType:EventEmitter;
-
+    @Event() resetFilter:EventEmitter;
+    @Listen('newProductLevel')
+    handleNewProductLevel(event:CustomEvent) {
+        this.showedCats =  this.categoryList;
+        this.showedExs = this.exchangeList;
+    }
     @Listen('filterOptions')
     handleFilterOptions(event:CustomEvent) {
         if (event.detail.id=="category") {
             this.showedCats =  this.categoryList.filter(function(cat){
                 return event.detail.data.test(cat);
             })
+            this.showCatOptions =true;
         } else if (event.detail.id=="exchange") {
-            this.showedExs=  this.categoryList.filter(function(cat){
+            this.showedExs=  this.exchangeList.filter(function(cat){
                 return event.detail.data.test(cat);
             }) 
+            this.showExOptions =true;
         }
     }
-    @Listen('hideOptions')
-    handleShowHide(event:CustomEvent) {
-        if (event.detail.id=="category") {
-            this.showCatOptions=false;
-        } else if (event.detail.id=="exchange") {
-            this.showExOptions=false;       
-        }        
-    }
+
     @Listen('inputFocus')
     handleInputFocus(event:CustomEvent) {
         if (event.detail.id=="category") {
@@ -48,49 +52,70 @@ export class AppControl {
             this.focusExOptions=true;       
         }           
     }
+   
     handleSearchInput=(evt)=>{
         this.newSearch.emit(evt.target.value);
+    }
+    handleRadio=(evt)=>{
+        this.newProductLevel.emit(evt.target.value);
     }
     handleCheckbox=(evt)=>{
         this.newInstrumType.emit(evt.target.value);
     }
     handleClick=(evt)=>{
-        this.showCatOptions = false;
-        this.showExOptions=false;
-        if (this.focusCatOptions) {
-            this.focusCatOptions=false;
-            this.showCatOptions = true;
-        } else if (this.focusExOptions){
-            this.focusExOptions=false;
-            this.showExOptions=true;
+        if (evt.target.tagName=="APP-MULTI-SELECT") {
+            if (evt.target.id=="category") {
+                this.showCatOptions = this.showCatOptions?false:true;
+                this.focusCatOptions=true;
+            } else if (evt.target.id=="exchange"){
+                this.showExOptions = this.showExOptions?false:true;
+                this.focusExOptions=true;
+            }
+        } else {
+           this.showCatOptions =false;
+           this.showExOptions = false;
+           this.focusCatOptions=false;
+           this.focusExOptions=false;
         }
+    }
+    handleReset = ()=>{
+        this.resetFilter.emit();
     }
     render(){
         return (
             <div onClick={this.handleClick} class="wrap">
+                <div>Refine Your Search</div>
+                <app-button onClick={this.handleReset}>Reset</app-button>
                 <div class="input-wrap">
-                    <input class="text-input" type="text" maxlength="150" onInput={this.handleSearchInput}/>
+                    <input class="text-input" type="text" maxlength="150" value={this.searchTerm} onInput={this.handleSearchInput}/>
                 </div>
-                <div>
-                    <div>
-                        <input type="checkbox" value="future" onInput={this.handleCheckbox}/>
-                        <label>Futures</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" value="option" onInput={this.handleCheckbox}/>
-                        <label>Options</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" value="spread" onInput={this.handleCheckbox}/>
-                        <label>Spreads</label>
-                    </div>
-                </div>
+                <label><input type="radio" name="products" value="individual" onInput={this.handleRadio}
+                checked={this.productLevel=="individual"}/>Individual products</label>
+                <label><input type="radio" name="products" value="complete" onInput={this.handleRadio}
+                checked={this.productLevel=="complete"}/>Complete individual exchange</label>
+                <label><input type="radio" name="products" value="all" onInput={this.handleRadio}
+                checked={this.productLevel=="all"}/>All exchanges (All data)</label>
+                {this.productLevel=='individual'&&<div>
+                <strong>Instrument Type</strong>
+                    <label><input type="checkbox" value="future" onInput={this.handleCheckbox}
+                    checked={this.instrumType.indexOf('future')>=0}/>Futures</label>
+                    <label><input type="checkbox" value="option" onInput={this.handleCheckbox}
+                    checked={this.instrumType.indexOf('option')>=0}/>Options</label>
+                    <label><input type="checkbox" value="spread" onInput={this.handleCheckbox}
+                    checked={this.instrumType.indexOf('spread')>=0}/>Spreads</label>
+                </div>}
+                {this.productLevel=='individual'&&<div>
+                    <strong>Asset Class</strong>
                     <app-multi-select id="category" selectedItems={this.selectedCats} show={this.showCatOptions}
-                    options={this.showedCats} options-length={this.categoryList.length}>
+                    options={this.showedCats} options-length={this.categoryList.length} focusInput={this.focusCatOptions}>
                     </app-multi-select>
+                </div>}
+                {(this.productLevel=="individual"||this.productLevel=="complete")&&<div>
+                    <strong>Exchange</strong>
                     <app-multi-select id="exchange" selectedItems={this.selectedExs} show={this.showExOptions}
-                    options={this.showedExs} options-length={this.exchangeList.length}>
+                    options={this.showedExs} options-length={this.exchangeList.length} focusInput={this.focusExOptions}>
                     </app-multi-select>
+                </div>}
 
             </div>)
     }

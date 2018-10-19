@@ -11,13 +11,12 @@ export class AppMultiSelect {
     @Prop() selectedItems: string[]=[];
     @Prop() options:string[]=[];
     @Prop() optionsLength:number;
-    @Prop() show:boolean=false;
+    @Prop() show:boolean;
+    @Prop() focusInput:boolean;
     @Event() newSelect:EventEmitter;
     @Event() deleteSelect:EventEmitter;
     @Event() filterOptions:EventEmitter;
-    @Event() hideOptions:EventEmitter;
     @Event() inputFocus:EventEmitter;
-    
     createSelected= (cat)=>(<li class="category-item">{cat}</li>)
     creatOptions =(cat)=>(<option value={cat}>{cat}</option>)
     handleInput = (evt)=>{
@@ -26,10 +25,9 @@ export class AppMultiSelect {
     }
     handleDelete =(evt)=>{
         var key = evt.keyCode || evt.charCode;
-        if( key == 8 || key == 46 )
+        var textInput = this.el.shadowRoot.querySelector(".text-input") as HTMLInputElement;
+        if( (key == 8 || key == 46) &&textInput.value=="")
         this.deleteSelect.emit({data:this.selectedItems.length-1,id:this.el.id});
-         var textInput =  this.el.shadowRoot.querySelector(".text-input") as HTMLInputElement;
-        textInput.focus();
     }
     handleSelection=(evt)=>{
         // fired twice?
@@ -42,12 +40,18 @@ export class AppMultiSelect {
         }
         var selectElement = this.el.shadowRoot.querySelector(".multi-select-option") as HTMLInputElement;
         selectElement.value="";
-        this.hideOptions.emit({id:this.el.id});
     }
     handleClick=()=>{
-        this.inputFocus.emit({id:this.el.id});
+        if (!this.show) {
+            this.inputFocus.emit({id:this.el.id});
+        }
     }
-
+    componentDidUpdate(){
+        if (this.focusInput) {
+            var textInput = this.el.shadowRoot.querySelector(".text-input") as HTMLInputElement;
+            textInput.focus();
+        }
+    }
     render(){
         return(
                 <div class="multi-select">

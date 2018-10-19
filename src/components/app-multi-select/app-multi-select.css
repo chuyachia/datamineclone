@@ -18,7 +18,8 @@ li {
 
 
 .multi-select {
-    margin-bottom:3px;   
+    margin-bottom:3px;
+    position:relative;
 }
 
 .text-input{
@@ -39,6 +40,8 @@ li {
 .multi-select-option {
     display:none;
     width:100%;
+    position:absolute;
+    z-index:5;
 }
 .showdropdonw {
     display:block;

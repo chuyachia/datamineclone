@@ -32,13 +32,30 @@ export namespace Components {
     'open'?: boolean;
   }
 
+  interface AppButton {
+    'disabled': boolean;
+    'type': string;
+  }
+  interface AppButtonAttributes extends StencilHTMLAttributes {
+    'disabled'?: boolean;
+    'type'?: string;
+  }
+
   interface AppControl {
+    'instrumType': string[];
+    'productLevel': string;
+    'searchTerm': string;
     'selectedCats': string[];
     'selectedExs': string[];
   }
   interface AppControlAttributes extends StencilHTMLAttributes {
+    'instrumType'?: string[];
     'onNewInstrumType'?: (event: CustomEvent) => void;
+    'onNewProductLevel'?: (event: CustomEvent) => void;
     'onNewSearch'?: (event: CustomEvent) => void;
+    'onResetFilter'?: (event: CustomEvent) => void;
+    'productLevel'?: string;
+    'searchTerm'?: string;
     'selectedCats'?: string[];
     'selectedExs'?: string[];
   }
@@ -76,15 +93,16 @@ export namespace Components {
   }
 
   interface AppMultiSelect {
+    'focusInput': boolean;
     'options': string[];
     'optionsLength': number;
     'selectedItems': string[];
     'show': boolean;
   }
   interface AppMultiSelectAttributes extends StencilHTMLAttributes {
+    'focusInput'?: boolean;
     'onDeleteSelect'?: (event: CustomEvent) => void;
     'onFilterOptions'?: (event: CustomEvent) => void;
-    'onHideOptions'?: (event: CustomEvent) => void;
     'onInputFocus'?: (event: CustomEvent) => void;
     'onNewSelect'?: (event: CustomEvent) => void;
     'options'?: string[];
@@ -110,6 +128,7 @@ declare global {
   interface StencilElementInterfaces {
     'AppArrows': Components.AppArrows;
     'AppBackdrop': Components.AppBackdrop;
+    'AppButton': Components.AppButton;
     'AppControl': Components.AppControl;
     'AppInfoTable': Components.AppInfoTable;
     'AppMain': Components.AppMain;
@@ -121,6 +140,7 @@ declare global {
   interface StencilIntrinsicElements {
     'app-arrows': Components.AppArrowsAttributes;
     'app-backdrop': Components.AppBackdropAttributes;
+    'app-button': Components.AppButtonAttributes;
     'app-control': Components.AppControlAttributes;
     'app-info-table': Components.AppInfoTableAttributes;
     'app-main': Components.AppMainAttributes;
@@ -140,6 +160,12 @@ declare global {
   var HTMLAppBackdropElement: {
     prototype: HTMLAppBackdropElement;
     new (): HTMLAppBackdropElement;
+  };
+
+  interface HTMLAppButtonElement extends Components.AppButton, HTMLStencilElement {}
+  var HTMLAppButtonElement: {
+    prototype: HTMLAppButtonElement;
+    new (): HTMLAppButtonElement;
   };
 
   interface HTMLAppControlElement extends Components.AppControl, HTMLStencilElement {}
@@ -181,6 +207,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'app-arrows': HTMLAppArrowsElement
     'app-backdrop': HTMLAppBackdropElement
+    'app-button': HTMLAppButtonElement
     'app-control': HTMLAppControlElement
     'app-info-table': HTMLAppInfoTableElement
     'app-main': HTMLAppMainElement
@@ -192,6 +219,7 @@ declare global {
   interface ElementTagNameMap {
     'app-arrows': HTMLAppArrowsElement;
     'app-backdrop': HTMLAppBackdropElement;
+    'app-button': HTMLAppButtonElement;
     'app-control': HTMLAppControlElement;
     'app-info-table': HTMLAppInfoTableElement;
     'app-main': HTMLAppMainElement;

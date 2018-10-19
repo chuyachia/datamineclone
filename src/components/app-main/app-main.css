@@ -2,20 +2,31 @@ main {
     display:flex;
     flex-flow:row wrap;
     padding:5px;
-    align-items:stretch;
+    align-content:stretch;
+}
+
+main > * {
+    flex:1 100%;
+}
+@media (min-width: 768px) {
+     .app-control {
+        flex:1 0px;
+    }
+    .app-content {
+        flex:6 0px;
+    }
 }
 .app-control {
     padding:5px;
-    flex:1 0px;
 }
 
 .app-content {
     padding:5px;
-    flex:4 0px;
     display:flex;
     flex-flow:row wrap;
     align-items:center;
     justify-content:space-between;
+    align-content:flex-start;
 } 
 
 
@@ -30,13 +41,25 @@ th {
     padding:10px;
 }
 tr:nth-child(even) {
-    background-color:var(--app-light-grey);
+    background-color:var(--app-light-blue);
 }
 tr:nth-child(odd) {
     background-color:white;
 }
 
-tr:first-child {
+tr:first-child.table-head{
     background-color:var(--app-black);
     color:white;
+}
+tr:hover {
+    background-color:var(--app-light-orange);
+}
+
+a {
+    color:var(--app-blue);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration:underline;
 }

@@ -1,0 +1,45 @@
+button {
+    border-width:2px;
+    border-style:solid;
+    border-radius:3px;
+    padding:5px;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-right:3px;
+    cursor:pointer;
+}
+button.disabled,button.disabled:hover{
+    opacity:0.5;
+    color:white;
+    cursor:not-allowed;
+}
+.principal {
+    background:var(--app-blue);
+    color:white;
+    border-color:var(--app-blue);
+}
+
+.principal:not(.disabled):hover {
+    background:white; 
+    color:var(--app-blue);
+}
+
+.cancel {
+    background:var(--app-deep-grey);
+    color:white;
+    border-color:var(--app-deep-grey);
+}
+.cancel:not(.disabled):hover {
+    background:white; 
+    color:var(--app-deep-grey);
+}
+
+.highlight {
+    background:var(--app-yellow);
+    color:white;
+    border-color:var(--app-yellow);   
+}
+.highlight:not(.disabled):hover {
+    background:white; 
+    color:var(--app-yellow);
+}
