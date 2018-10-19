@@ -153,7 +153,7 @@ export class AppTable {
         this.curPageData = filteredData.slice((this.curPage-1)*this.nrowPage,this.curPage*this.nrowPage);        
     }
     componentWillLoad(){
-        /*getData('https://cdn.glitch.com/1e8c939e-c923-420c-b9e8-e4fed617755f%2Fproductsheet.csv')
+        getData('https://cdn.glitch.com/1e8c939e-c923-420c-b9e8-e4fed617755f%2Fproductsheet.csv')
         .then((response)=>{
             csv({
                 delimiter:';',
@@ -180,8 +180,8 @@ export class AppTable {
             })
         }).catch(function(error){
             console.log(error);
-        })*/
-        this.data = [{
+        })
+        /*this.data = [{
             product:'a',
             exchange:'a',
             category:'AGRICULTURE',
@@ -200,7 +200,7 @@ export class AppTable {
             future:true,
             option:false            
         }];
-        this.updateShowedData();
+        this.updateShowedData();*/
     }
     handleProductClick = (evt)=>{
         var el = evt.srcElement;

@@ -12,9 +12,10 @@ body {
 
 :root {
     --app-blue: #488aff;
-    --app-deep-grey: #3d3d3d;
-    --app-light-grey:#f6f6f6;
+    --app-deep-grey: rgb(61, 67, 87);
+    --app-light-blue:#eff4f8;
     --app-black:#000000;
     --app-red:#f41000;
+    --app-yellow:#e28b00;
+    --app-light-orange:#fbe1bc;
 }
-
