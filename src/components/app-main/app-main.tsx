@@ -152,7 +152,7 @@ export class AppTable {
         this.dataLength = filteredData.length;
         this.curPageData = filteredData.slice((this.curPage-1)*this.nrowPage,this.curPage*this.nrowPage);        
     }
-    componentWillLoad(){
+    componentDidLoad(){
         getData('https://cdn.glitch.com/1e8c939e-c923-420c-b9e8-e4fed617755f%2Fproductsheet.csv')
         .then((response)=>{
             csv({

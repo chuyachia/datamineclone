@@ -2,12 +2,12 @@
   "namespace": "App",
   "fsNamespace": "app",
   "loader": "../app.js",
-  "core": "app.vzfnsd8j.js",
-  "corePolyfilled": "app.80ltggaf.js",
+  "core": "app.qgvhgdsd.js",
+  "corePolyfilled": "app.innefltd.js",
   "components": {
     "app-arrows": {
       "bundleIds": {
-        "$": "p1rzoumr"
+        "$": "wpzy9cae"
       },
       "encapsulation": "shadow"
     },
@@ -31,18 +31,18 @@
     },
     "app-info-table": {
       "bundleIds": {
-        "$": "p1rzoumr"
+        "$": "wpzy9cae"
       }
     },
     "app-main": {
       "bundleIds": {
-        "$": "p1rzoumr"
+        "$": "wpzy9cae"
       },
       "encapsulation": "shadow"
     },
     "app-modal": {
       "bundleIds": {
-        "$": "p1rzoumr"
+        "$": "wpzy9cae"
       },
       "encapsulation": "shadow"
     },
@@ -54,7 +54,7 @@
     },
     "app-pagination": {
       "bundleIds": {
-        "$": "p1rzoumr"
+        "$": "wpzy9cae"
       },
       "encapsulation": "shadow"
     }
