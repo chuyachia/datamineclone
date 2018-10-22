@@ -8,7 +8,7 @@ import { Component, State, Prop, Event, EventEmitter, Listen } from '@stencil/co
 
 export class AppControl {
     @State() categoryList:string[] = ['AGRICULTURE','ENERGY','EQUITY INDEX','FX','INTEREST RATES','METALS','REAL ESTATE','WEATHER'];
-    @State() exchangeList:string[] = ['COMEX','CBOT','CME'];
+    @State() exchangeList:string[] = ['COMEX','CBOT','CME','NYMEX','DME'];
     @State() showedCats:string[]= this.categoryList;
     @State() showedExs:string[]= this.exchangeList;
     @State() showCatOptions:boolean=false;

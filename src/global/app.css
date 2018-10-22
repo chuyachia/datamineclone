@@ -6,7 +6,10 @@ body {
     margin:0px;
     padding:0px;
     font: 13px/20px PTSansRegular,Arial,Helvetica,sans-serif;
+}
 
+body.hide-scroll {
+    overflow:hidden
 }
 
 

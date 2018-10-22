@@ -72,6 +72,7 @@ export namespace Components {
   }
   interface AppMainAttributes extends StencilHTMLAttributes {
     'nrowPage'?: number;
+    'onOpenModal'?: (event: CustomEvent) => void;
   }
 
   interface AppModal {

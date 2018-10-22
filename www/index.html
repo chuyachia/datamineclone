@@ -11,7 +11,15 @@
 
 <body>
         <app-main nrow-page="25"></app-main>
-<script data-build="2018-09-19T22:05:01">
+        <script>
+                document.body.addEventListener('openModal',function(){
+                        this.classList.add('hide-scroll');
+                });
+                document.body.addEventListener('closeModal',function(){
+                        this.classList.remove('hide-scroll');
+                });
+        </script>
+<script data-build="2018-09-22T00:41:36">
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js')

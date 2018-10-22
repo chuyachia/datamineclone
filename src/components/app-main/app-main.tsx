@@ -1,4 +1,4 @@
-import { Component, State, Prop, Listen } from '@stencil/core';
+import { Component, State, Prop, Listen, Event, EventEmitter } from '@stencil/core';
 import csv from 'csvtojson';
 import getData from '../../util/getData.js';
 @Component({
@@ -24,6 +24,14 @@ export class AppTable {
     @State() curPageData :ProductData[] = [];
     @State() dataLength: number = this.data.length;
     @State() productLevel:string="individual";
+    @Event() openModal :EventEmitter;
+    exchangeNameMatch = {
+        XCEC:"COMEX",
+        XCBT:"CBOT",
+        XCME:"CME",
+        XNYM:"NYMEX",
+        DUMX:"DME"
+    }
     @Listen('changePage')
     changePageHandler(event:CustomEvent){
         this.curPage = event.detail;
@@ -103,7 +111,7 @@ export class AppTable {
     }
     updateShowedData=()=>{
         var filteredData = this.data;
-        if (this.searchTerm.length>1||this.instrumType.length>0||this.category.length>0||this.productLevel!==null) {
+        if (this.searchTerm.length>1||this.instrumType.length>0||this.category.length>0||this.exchange.length>0||this.productLevel!==null) {
             var target = RegExp(this.searchTerm,'i');
             filteredData = this.data.filter((row)=>{
                 var level;
@@ -111,6 +119,7 @@ export class AppTable {
                 var instrum;
                 var instrumSum= 0;
                 var cat;
+                var exch;
                 if (this.productLevel=='individual'){
                     level = !/Complete/.test(row.product)
                 } else if (this.productLevel=='complete') {
@@ -134,7 +143,12 @@ export class AppTable {
                 } else {
                     cat = this.category.indexOf(row.category)>=0;
                 }
-                return term&&instrum&&cat&&level;
+                if (this.exchange.length==0){
+                    exch = true;
+                } else {
+                    exch = this.exchange.indexOf(this.exchangeNameMatch[row.exchange])>=0;
+                }
+                return term&&instrum&&cat&&exch&&level;
             });
 
         }
@@ -161,15 +175,20 @@ export class AppTable {
             }).fromString(response)
             .then(function(parsed){
                 return parsed.map(function(row){
+                    var symbol = [row.BBO_CODE,row.RLC_CODE,row.MD_CODE,row.MBO_CODE,row.BLOCK_CODE,row.EOD_CODE,row.TICK_CODE]
+                    symbol = symbol.filter(function(s){return s!=="null"});
                     return {
                         product: row.PROD_NAME,
                         exchange:row.EXCH_CODE,
                         category:row.PROD_CATEGORY,
-                        symbol:row.PROD_CODE,
+                        symbol:symbol.length>0?symbol[0]:'',
+                        groupcode:row.GROUP_CODE,
+                        productcode:row.PROD_CODE,
                         foi:row.FOI,
                         spread:row.SPREAD_IND==1?true:false,
                         future:row.FOI=="FUT"?true:false,
-                        option:row.FOI=="OPT"?true:false
+                        option:row.FOI=="OPT"?true:false,
+                        globextrad:row.GLOBEX_TRADED==1?true:false
                     }
                 }).filter(function(row){
                     return row.product.length>0&&row.symbol.length>0&&row.symbol!='null';
@@ -181,37 +200,23 @@ export class AppTable {
         }).catch(function(error){
             console.log(error);
         })
-        /*this.data = [{
-            product:'a',
-            exchange:'a',
-            category:'AGRICULTURE',
-            symbol:'a',
-            foi:'a',
-            spread:false,
-            future:true,
-            option:false            
-        },{
-            product:'a',
-            exchange:'a',
-            category:'ENERGY',
-            symbol:'a',
-            foi:'a',
-            spread:true,
-            future:true,
-            option:false            
-        }];
-        this.updateShowedData();*/
     }
     handleProductClick = (evt)=>{
         var el = evt.srcElement;
         var data = {
             product:el.getAttribute('data-product'),
-            exchange:el.getAttribute('data-exchange'),
             category:el.getAttribute('data-category'),
+            groupcode:el.getAttribute('data-groupcode'),
+            productcode:el.getAttribute('data-productcode'),
+            exchange:el.getAttribute('data-exchange'),
             symbol:el.getAttribute('data-symbol'),
-            foi:el.getAttribute('data-foi')
+            foi:el.getAttribute('data-foi'),
+            spread:el.getAttribute('data-spread'),
+            globextrad:el.getAttribute('data-globextrad')
+            
         };
         this.infoModalOpen = true;
+        this.openModal.emit();
         this.infoData= data;
             
     }
@@ -233,6 +238,7 @@ export class AppTable {
     }
     addSelection =()=>{
         this.selectModalOpen = true;
+        this.openModal.emit();
     }
     clearSelection=()=>{
         this.selected=[];
@@ -242,11 +248,16 @@ export class AppTable {
         <tr>
             <td><input type="checkbox" value={data.product} onChange={this.handleSelect}
             checked={this.selected.indexOf(data.product)>=0}/></td>
-            <td><a href="#" data-product={data.product} 
-                data-exchange={data.exchange}
+            <td><a href="#" 
+                data-product={data.product}
                 data-category={data.category}
+                data-groupcode ={data.groupcode}
+                data-productcode = {data.productcode}
+                data-exchange={data.exchange}
                 data-symbol={data.symbol}
                 data-foi={data.foi}
+                data-spread = {data.spread}
+                data-globextrad= {data.globextrad}
                 onClick={this.handleProductClick}>{data.product}</a></td>
             <td></td>
             <td>{data.exchange}</td>
@@ -319,9 +330,12 @@ interface ProductData {
     exchange:string;
     category:string;
     symbol:string;
+    groupcode:string;
+    productcode:string;
     foi:string;
     spread:boolean;
     future:boolean;
     option:boolean;
+    globextrad:boolean;
 }
 

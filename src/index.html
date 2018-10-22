@@ -11,6 +11,14 @@
 
 <body>
         <app-main nrow-page="25"></app-main>
+        <script>
+                document.body.addEventListener('openModal',function(){
+                        this.classList.add('hide-scroll');
+                });
+                document.body.addEventListener('closeModal',function(){
+                        this.classList.remove('hide-scroll');
+                });
+        </script>
 </body>
 
 </html>

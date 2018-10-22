@@ -11,12 +11,12 @@ export class AppInfoTable {
         return(
             <table>
             <tr>
-            <td>Product</td>
+            <td>Name</td>
             <td>{this.data.product}</td>
             </tr>
             <tr>
             <td>Dataset</td>
-            <td>{this.data.dataset}</td>
+            <td></td>
             </tr>
             <tr>
             <td>Category</td>
@@ -44,31 +44,31 @@ export class AppInfoTable {
             </tr>
             <tr>
             <td>Spread</td>
-            <td>{this.data.spread}</td>
+            <td>{this.data.spread?'Yes':'No'}</td>
             </tr> 
             <tr>
             <td>Floor traded</td>
-            <td>{this.data.floor}</td>
+            <td></td>
             </tr>
             <tr>
             <td>Globex traded</td>
-            <td>{this.data.globex}</td>
+            <td>{this.data.globextrad?'Yes':'No'}</td>
             </tr> 
             <tr>
             <td>Tier</td>
-            <td>{this.data.tier}</td>
+            <td></td>
             </tr>
             <tr>
             <td>File first seen on</td>
-            <td>{this.data.firstseen}</td>
+            <td></td>
             </tr> 
             <tr>
             <td>File last seen on</td>
-            <td>{this.data.lastseen}</td>
+            <td></td>
             </tr>
             <tr>
             <td>Files count</td>
-            <td>{this.data.count}</td>
+            <td></td>
             </tr>
             </table>
             )
