@@ -3,8 +3,9 @@ export interface ProductData {
     exchange:string;
     category:string;
     symbol:string;
+    groupcode:string;
+    productcode:string;
     foi:string;
     spread:boolean;
-    future:boolean;
-    option:boolean;
+    globextrad:boolean;
 }

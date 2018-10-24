@@ -1,4 +1,5 @@
 import { Component, State, Prop, Listen, Event, EventEmitter } from '@stencil/core';
+import {ProductData} from '../../datatypes/datatypes';
 import csv from 'csvtojson';
 import getData from '../../util/getData.js';
 @Component({
@@ -16,7 +17,24 @@ export class AppTable {
     @State() curPage: number=1;
     @State() infoModalOpen: boolean=false;
     @State() selectModalOpen: boolean=false;
-    @State() infoData : any={};
+    @State() infoData : ProductData={
+        product:'',
+        exchange:'',
+        category:'',
+        symbol:'',
+        groupcode:'',
+        productcode:'',
+        foi:'',
+        spread:false,
+        globextrad:false
+    };
+    @State() readonly exchangeNameMatch:Object = {
+        XCEC:"COMEX",
+        XCBT:"CBOT",
+        XCME:"CME",
+        XNYM:"NYMEX",
+        DUMX:"DME"
+    };
     @State() searchTerm : string='';
     @State() instrumType:string[]=[];
     @State() category:string[]=[];
@@ -25,13 +43,6 @@ export class AppTable {
     @State() dataLength: number = this.data.length;
     @State() productLevel:string="individual";
     @Event() openModal :EventEmitter;
-    exchangeNameMatch = {
-        XCEC:"COMEX",
-        XCBT:"CBOT",
-        XCME:"CME",
-        XNYM:"NYMEX",
-        DUMX:"DME"
-    }
     @Listen('changePage')
     changePageHandler(event:CustomEvent){
         this.curPage = event.detail;
@@ -65,8 +76,7 @@ export class AppTable {
     }
     @Listen('newSelect')
     handleNewSelect(event:CustomEvent){
-        var data,id;
-        ({data,id} = event.detail);
+        var {data,id} = event.detail;
         if (data=="") return;
         if (id=="category") {
             this.category = [...this.category,data];
@@ -88,8 +98,7 @@ export class AppTable {
     }
     @Listen('deleteSelect')
     handleDeleteSelect(event:CustomEvent) {
-        var data,id;
-        ({data,id} = event.detail);
+        var {data,id} = event.detail;
         if (id=="category") {
             this.category = this.category.slice(0,data).concat(
                 this.category.slice(data+1));
@@ -203,18 +212,7 @@ export class AppTable {
     }
     handleProductClick = (evt)=>{
         var el = evt.srcElement;
-        var data = {
-            product:el.getAttribute('data-product'),
-            category:el.getAttribute('data-category'),
-            groupcode:el.getAttribute('data-groupcode'),
-            productcode:el.getAttribute('data-productcode'),
-            exchange:el.getAttribute('data-exchange'),
-            symbol:el.getAttribute('data-symbol'),
-            foi:el.getAttribute('data-foi'),
-            spread:el.getAttribute('data-spread'),
-            globextrad:el.getAttribute('data-globextrad')
-            
-        };
+        var data = el.dataset;
         this.infoModalOpen = true;
         this.openModal.emit();
         this.infoData= data;
@@ -228,7 +226,6 @@ export class AppTable {
     
     handleSelect=(evt)=>{
         var target = evt.target.value;
-        console.log(target);
         var indx = this.selected.indexOf(target);
         if (indx==-1){
             this.selected = [...this.selected,target];   
@@ -256,8 +253,8 @@ export class AppTable {
                 data-exchange={data.exchange}
                 data-symbol={data.symbol}
                 data-foi={data.foi}
-                data-spread = {data.spread}
-                data-globextrad= {data.globextrad}
+                data-spread = {data.spread?"Yes":"No"}
+                data-globextrad= {data.globextrad?"Yes":"No"}
                 onClick={this.handleProductClick}>{data.product}</a></td>
             <td></td>
             <td>{data.exchange}</td>
@@ -324,7 +321,7 @@ export class AppTable {
         </main>);
     }
 }
-
+/*
 interface ProductData {
     product:string;
     exchange:string;
@@ -334,8 +331,6 @@ interface ProductData {
     productcode:string;
     foi:string;
     spread:boolean;
-    future:boolean;
-    option:boolean;
     globextrad:boolean;
-}
+}*/
 

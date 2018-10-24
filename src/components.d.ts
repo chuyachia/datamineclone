@@ -8,6 +8,9 @@
 import '@stencil/core';
 
 
+import {
+  ProductData,
+} from './datatypes/datatypes';
 
 
 export namespace Components {
@@ -61,10 +64,10 @@ export namespace Components {
   }
 
   interface AppInfoTable {
-    'data': any;
+    'data': ProductData;
   }
   interface AppInfoTableAttributes extends StencilHTMLAttributes {
-    'data'?: any;
+    'data'?: ProductData;
   }
 
   interface AppMain {

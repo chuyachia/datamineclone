@@ -1,11 +1,11 @@
 import { Component, Prop } from '@stencil/core';
-
+import {ProductData} from '../../datatypes/datatypes';
 @Component({
   tag: 'app-info-table'
 })
 
 export class AppInfoTable {
-    @Prop() data:any;
+    @Prop() data:ProductData;
     
     render(){
         return(
@@ -44,7 +44,7 @@ export class AppInfoTable {
             </tr>
             <tr>
             <td>Spread</td>
-            <td>{this.data.spread?'Yes':'No'}</td>
+            <td>{this.data.spread}</td>
             </tr> 
             <tr>
             <td>Floor traded</td>
@@ -52,7 +52,7 @@ export class AppInfoTable {
             </tr>
             <tr>
             <td>Globex traded</td>
-            <td>{this.data.globextrad?'Yes':'No'}</td>
+            <td>{this.data.globextrad}</td>
             </tr> 
             <tr>
             <td>Tier</td>

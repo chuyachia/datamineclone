@@ -17,8 +17,8 @@ export class AppMultiSelect {
     @Event() deleteSelect:EventEmitter;
     @Event() filterOptions:EventEmitter;
     @Event() inputFocus:EventEmitter;
-    createSelected= (cat)=>(<li class="category-item">{cat}</li>)
-    creatOptions =(cat)=>(<option value={cat}>{cat}</option>)
+    createSelected= (cat:string)=>(<li class="category-item">{cat}</li>)
+    creatOptions =(cat:string)=>(<option value={cat}>{cat}</option>)
     handleInput = (evt)=>{
         var target = RegExp(evt.target.value,'i');
         this.filterOptions.emit({data:target,id:this.el.id});

@@ -2,24 +2,24 @@
   "namespace": "App",
   "fsNamespace": "app",
   "loader": "../app.js",
-  "core": "app.xdspmrws.js",
-  "corePolyfilled": "app.dvduojw4.js",
+  "core": "app.iwyerpk5.js",
+  "corePolyfilled": "app.ecmgvq5d.js",
   "components": {
     "app-arrows": {
       "bundleIds": {
-        "$": "8xz2yzio"
+        "$": "eju5grxq"
       },
       "encapsulation": "shadow"
     },
     "app-backdrop": {
       "bundleIds": {
-        "$": "ghco7o7w"
+        "$": "blg1m9fd"
       },
       "encapsulation": "shadow"
     },
     "app-button": {
       "bundleIds": {
-        "$": "ghco7o7w"
+        "$": "blg1m9fd"
       },
       "encapsulation": "shadow"
     },
@@ -31,18 +31,18 @@
     },
     "app-info-table": {
       "bundleIds": {
-        "$": "8xz2yzio"
+        "$": "eju5grxq"
       }
     },
     "app-main": {
       "bundleIds": {
-        "$": "8xz2yzio"
+        "$": "eju5grxq"
       },
       "encapsulation": "shadow"
     },
     "app-modal": {
       "bundleIds": {
-        "$": "8xz2yzio"
+        "$": "eju5grxq"
       },
       "encapsulation": "shadow"
     },
@@ -54,7 +54,7 @@
     },
     "app-pagination": {
       "bundleIds": {
-        "$": "8xz2yzio"
+        "$": "eju5grxq"
       },
       "encapsulation": "shadow"
     }

@@ -7,13 +7,13 @@ import { Component, Prop, State, Event, EventEmitter } from '@stencil/core';
 })
 
 export class AppPagination {
-    @Prop() nPage:number;
+    @Prop() readonly nPage:number;
     @Prop() maxSeq:number;
     @State() showedPages: number[]=[];
     @Prop() curPage: number;
     @Event() changePage: EventEmitter;
     
-    changeShowedPages=(page)=>{
+    changeShowedPages=(page:number)=>{
         var newShowed=[];
         if (this.nPage<=7){
             for(let i = 1;i<=this.nPage;i++){
@@ -62,7 +62,7 @@ export class AppPagination {
         }
     }
     
-    createPages=(page)=>(<li class={`${page==this.curPage?'cur-page':''} ${page<0?'unclickable':''}`}>
+    createPages=(page:number)=>(<li class={`${page==this.curPage?'cur-page':''} ${page<0?'unclickable':''}`}>
     <span data-page={page} onClick={this.handlePageClick}>{page>0?page:'...'}</span>
     </li>)
     
