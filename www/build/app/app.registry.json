@@ -2,12 +2,12 @@
   "namespace": "App",
   "fsNamespace": "app",
   "loader": "../app.js",
-  "core": "app.iwyerpk5.js",
-  "corePolyfilled": "app.ecmgvq5d.js",
+  "core": "app.x3i4rb4y.js",
+  "corePolyfilled": "app.ebtbvlf7.js",
   "components": {
     "app-arrows": {
       "bundleIds": {
-        "$": "eju5grxq"
+        "$": "1nholcjs"
       },
       "encapsulation": "shadow"
     },
@@ -25,36 +25,36 @@
     },
     "app-control": {
       "bundleIds": {
-        "$": "fnhcyi53"
+        "$": "xs76pxz3"
       },
       "encapsulation": "shadow"
     },
     "app-info-table": {
       "bundleIds": {
-        "$": "eju5grxq"
+        "$": "1nholcjs"
       }
     },
     "app-main": {
       "bundleIds": {
-        "$": "eju5grxq"
+        "$": "1nholcjs"
       },
       "encapsulation": "shadow"
     },
     "app-modal": {
       "bundleIds": {
-        "$": "eju5grxq"
+        "$": "1nholcjs"
       },
       "encapsulation": "shadow"
     },
     "app-multi-select": {
       "bundleIds": {
-        "$": "fnhcyi53"
+        "$": "xs76pxz3"
       },
       "encapsulation": "shadow"
     },
     "app-pagination": {
       "bundleIds": {
-        "$": "eju5grxq"
+        "$": "1nholcjs"
       },
       "encapsulation": "shadow"
     }

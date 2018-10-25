@@ -211,7 +211,7 @@ export class AppTable {
         })
     }
     handleProductClick = (evt)=>{
-        var el = evt.srcElement;
+        var el = evt.target;
         var data = el.dataset;
         this.infoModalOpen = true;
         this.openModal.emit();
@@ -219,7 +219,7 @@ export class AppTable {
             
     }
     handleSortClick=(evt)=>{
-        this.criteria = evt.srcElement.getAttribute('data-name');
+        this.criteria = evt.currentTarget.getAttribute('data-name');
         this.sortDir = this.sortDir=='desc'?'asc':'desc';
         this.updateShowedData();
     }

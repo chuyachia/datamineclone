@@ -56,7 +56,7 @@ export class AppPagination {
         }
     }
     handlePageClick=(evt)=>{
-        var page =  parseInt(evt.srcElement.getAttribute('data-page'));
+        var page =  parseInt(evt.target.getAttribute('data-page'));
         if (page>0){
             this.changePage.emit(page);
         }

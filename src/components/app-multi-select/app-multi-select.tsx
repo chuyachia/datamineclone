@@ -63,7 +63,7 @@ export class AppMultiSelect {
                     </ul>
                     <select class={`multi-select-option ${this.show?'showdropdonw':''}`}
                     size={this.optionsLength}
-                    onInput={this.handleSelection}>
+                    onChange={this.handleSelection}>
                         {this.options.map(this.creatOptions)}
                     </select >
                 </div>            

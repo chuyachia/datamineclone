@@ -52,7 +52,16 @@ export class AppControl {
             this.focusExOptions=true;       
         }           
     }
-   
+    handleMultiSelectClick=(evt)=>{
+        if (evt.currentTarget.id=="category") {
+            this.showCatOptions = this.showCatOptions?false:true;
+            this.showExOptions = false;
+        } else if (evt.currentTarget.id=="exchange"){
+            this.showExOptions = this.showExOptions?false:true;
+            this.showCatOptions = false;
+        }
+        evt.stopPropagation();
+    }
     handleSearchInput=(evt)=>{
         this.newSearch.emit(evt.target.value);
     }
@@ -62,28 +71,18 @@ export class AppControl {
     handleCheckbox=(evt)=>{
         this.newInstrumType.emit(evt.target.value);
     }
-    handleClick=(evt)=>{
-        if (evt.target.tagName=="APP-MULTI-SELECT") {
-            if (evt.target.id=="category") {
-                this.showCatOptions = this.showCatOptions?false:true;
-                this.focusCatOptions=true;
-            } else if (evt.target.id=="exchange"){
-                this.showExOptions = this.showExOptions?false:true;
-                this.focusExOptions=true;
-            }
-        } else {
+    handleWrapClick=()=>{
            this.showCatOptions =false;
            this.showExOptions = false;
            this.focusCatOptions=false;
            this.focusExOptions=false;
-        }
     }
     handleReset = ()=>{
         this.resetFilter.emit();
     }
     render(){
         return (
-            <div onClick={this.handleClick} class="wrap">
+            <div onClick={this.handleWrapClick} class="wrap">
                 <div>Refine Your Search</div>
                 <app-button onClick={this.handleReset}>Reset</app-button>
                 <div class="input-wrap">
@@ -106,14 +105,14 @@ export class AppControl {
                 </div>}
                 {this.productLevel=='individual'&&<div>
                     <strong>Asset Class</strong>
-                    <app-multi-select id="category" selectedItems={this.selectedCats} show={this.showCatOptions}
-                    options={this.showedCats} options-length={this.categoryList.length} focusInput={this.focusCatOptions}>
+                    <app-multi-select id="category" onClick={this.handleMultiSelectClick} selectedItems={this.selectedCats} 
+                    show={this.showCatOptions} options={this.showedCats} options-length={this.categoryList.length} focusInput={this.focusCatOptions}>
                     </app-multi-select>
                 </div>}
                 {(this.productLevel=="individual"||this.productLevel=="complete")&&<div>
                     <strong>Exchange</strong>
-                    <app-multi-select id="exchange" selectedItems={this.selectedExs} show={this.showExOptions}
-                    options={this.showedExs} options-length={this.exchangeList.length} focusInput={this.focusExOptions}>
+                    <app-multi-select  id="exchange" onClick={this.handleMultiSelectClick} selectedItems={this.selectedExs} 
+                    show={this.showExOptions} options={this.showedExs} options-length={this.exchangeList.length} focusInput={this.focusExOptions}>
                     </app-multi-select>
                 </div>}
 
