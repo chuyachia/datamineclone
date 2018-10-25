@@ -39,7 +39,12 @@ export class AppMultiSelect {
             this.deleteSelect.emit({data:indx,id:this.el.id});
         }
         var selectElement = this.el.shadowRoot.querySelector(".multi-select-option") as HTMLInputElement;
-        selectElement.value="";
+        var options = selectElement.children;
+        for (var i = 0;i<options.length;i++){
+            var el = options[i] as HTMLOptionElement;
+            el.selected=false;
+        }
+        //selectElement.value="";
     }
     handleClick=()=>{
         if (!this.show) {

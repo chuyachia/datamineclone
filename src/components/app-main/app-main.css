@@ -9,10 +9,10 @@ main > * {
     flex:1 100%;
 }
 @media (min-width: 768px) {
-     .app-control {
+    app-control.app-control {
         flex:1 0px;
     }
-    .app-content {
+    section.app-content {
         flex:6 0px;
     }
 }

@@ -88,19 +88,19 @@ export class AppControl {
                 <div class="input-wrap">
                     <input class="text-input" type="text" maxlength="150" value={this.searchTerm} onInput={this.handleSearchInput}/>
                 </div>
-                <label><input type="radio" name="products" value="individual" onInput={this.handleRadio}
+                <label><input type="radio" name="products" value="individual" onClick={this.handleRadio}
                 checked={this.productLevel=="individual"}/>Individual products</label>
-                <label><input type="radio" name="products" value="complete" onInput={this.handleRadio}
+                <label><input type="radio" name="products" value="complete" onClick={this.handleRadio}
                 checked={this.productLevel=="complete"}/>Complete individual exchange</label>
-                <label><input type="radio" name="products" value="all" onInput={this.handleRadio}
+                <label><input type="radio" name="products" value="all" onClick={this.handleRadio}
                 checked={this.productLevel=="all"}/>All exchanges (All data)</label>
                 {this.productLevel=='individual'&&<div>
                 <strong>Instrument Type</strong>
-                    <label><input type="checkbox" value="future" onInput={this.handleCheckbox}
+                    <label><input type="checkbox" value="future" onClick={this.handleCheckbox}
                     checked={this.instrumType.indexOf('future')>=0}/>Futures</label>
-                    <label><input type="checkbox" value="option" onInput={this.handleCheckbox}
+                    <label><input type="checkbox" value="option" onClick={this.handleCheckbox}
                     checked={this.instrumType.indexOf('option')>=0}/>Options</label>
-                    <label><input type="checkbox" value="spread" onInput={this.handleCheckbox}
+                    <label><input type="checkbox" value="spread" onClick={this.handleCheckbox}
                     checked={this.instrumType.indexOf('spread')>=0}/>Spreads</label>
                 </div>}
                 {this.productLevel=='individual'&&<div>

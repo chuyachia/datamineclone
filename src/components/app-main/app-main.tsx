@@ -234,8 +234,10 @@ export class AppTable {
         }
     }
     addSelection =()=>{
-        this.selectModalOpen = true;
-        this.openModal.emit();
+        if(this.selected.length>0) {
+            this.selectModalOpen = true;
+            this.openModal.emit();
+        }
     }
     clearSelection=()=>{
         this.selected=[];
