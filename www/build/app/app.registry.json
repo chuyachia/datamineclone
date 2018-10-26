@@ -2,8 +2,8 @@
   "namespace": "App",
   "fsNamespace": "app",
   "loader": "../app.js",
-  "core": "app.avsaqkhk.js",
-  "corePolyfilled": "app.m0rcqbrb.js",
+  "core": "app.pqodiy5g.js",
+  "corePolyfilled": "app.6mcnx1wv.js",
   "components": {
     "app-arrows": {
       "bundleIds": {
@@ -25,7 +25,7 @@
     },
     "app-control": {
       "bundleIds": {
-        "$": "fjbqyxiy"
+        "$": "wegb9yaj"
       },
       "encapsulation": "shadow"
     },
@@ -48,7 +48,7 @@
     },
     "app-multi-select": {
       "bundleIds": {
-        "$": "fjbqyxiy"
+        "$": "wegb9yaj"
       },
       "encapsulation": "shadow"
     },

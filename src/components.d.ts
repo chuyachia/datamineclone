@@ -98,21 +98,19 @@ export namespace Components {
 
   interface AppMultiSelect {
     'focusInput': boolean;
+    'id': string;
     'options': string[];
-    'optionsLength': number;
     'selectedItems': string[];
-    'show': boolean;
   }
   interface AppMultiSelectAttributes extends StencilHTMLAttributes {
     'focusInput'?: boolean;
+    'id'?: string;
     'onDeleteSelect'?: (event: CustomEvent) => void;
     'onFilterOptions'?: (event: CustomEvent) => void;
     'onInputFocus'?: (event: CustomEvent) => void;
     'onNewSelect'?: (event: CustomEvent) => void;
     'options'?: string[];
-    'optionsLength'?: number;
     'selectedItems'?: string[];
-    'show'?: boolean;
   }
 
   interface AppPagination {

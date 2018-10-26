@@ -9,10 +9,6 @@ import { Component, State, Prop, Event, EventEmitter, Listen } from '@stencil/co
 export class AppControl {
     @State() readonly categoryList:string[] = ['AGRICULTURE','ENERGY','EQUITY INDEX','FX','INTEREST RATES','METALS','REAL ESTATE','WEATHER'];
     @State() readonly exchangeList:string[] = ['COMEX','CBOT','CME','NYMEX','DME'];
-    @State() showedCats:string[]= this.categoryList;
-    @State() showedExs:string[]= this.exchangeList;
-    @State() showCatOptions:boolean=false;
-    @State() showExOptions:boolean=false;
     @State() focusCatOptions:boolean=false;
     @State() focusExOptions:boolean=false;
     @Prop() searchTerm:string='';
@@ -24,25 +20,6 @@ export class AppControl {
     @Event() newSearch:EventEmitter;
     @Event() newInstrumType:EventEmitter;
     @Event() resetFilter:EventEmitter;
-    @Listen('newProductLevel')
-    handleNewProductLevel() {
-        this.showedCats =  this.categoryList;
-        this.showedExs = this.exchangeList;
-    }
-    @Listen('filterOptions')
-    handleFilterOptions(event:CustomEvent) {
-        if (event.detail.id=="category") {
-            this.showedCats =  this.categoryList.filter(function(cat){
-                return event.detail.data.test(cat);
-            })
-            this.showCatOptions =true;
-        } else if (event.detail.id=="exchange") {
-            this.showedExs=  this.exchangeList.filter(function(cat){
-                return event.detail.data.test(cat);
-            }) 
-            this.showExOptions =true;
-        }
-    }
 
     @Listen('inputFocus')
     handleInputFocus(event:CustomEvent) {
@@ -53,13 +30,6 @@ export class AppControl {
         }           
     }
     handleMultiSelectClick=(evt)=>{
-        if (evt.currentTarget.id=="category") {
-            this.showCatOptions = this.showCatOptions?false:true;
-            this.showExOptions = false;
-        } else if (evt.currentTarget.id=="exchange"){
-            this.showExOptions = this.showExOptions?false:true;
-            this.showCatOptions = false;
-        }
         evt.stopPropagation();
     }
     handleSearchInput=(evt)=>{
@@ -72,8 +42,6 @@ export class AppControl {
         this.newInstrumType.emit(evt.target.value);
     }
     handleWrapClick=()=>{
-           this.showCatOptions =false;
-           this.showExOptions = false;
            this.focusCatOptions=false;
            this.focusExOptions=false;
     }
@@ -106,13 +74,13 @@ export class AppControl {
                 {this.productLevel=='individual'&&<div>
                     <strong>Asset Class</strong>
                     <app-multi-select id="category" onClick={this.handleMultiSelectClick} selectedItems={this.selectedCats} 
-                    show={this.showCatOptions} options={this.showedCats} options-length={this.categoryList.length} focusInput={this.focusCatOptions}>
+                    options={this.categoryList} focusInput={this.focusCatOptions}>
                     </app-multi-select>
                 </div>}
                 {(this.productLevel=="individual"||this.productLevel=="complete")&&<div>
                     <strong>Exchange</strong>
                     <app-multi-select  id="exchange" onClick={this.handleMultiSelectClick} selectedItems={this.selectedExs} 
-                    show={this.showExOptions} options={this.showedExs} options-length={this.exchangeList.length} focusInput={this.focusExOptions}>
+                    options={this.exchangeList} focusInput={this.focusExOptions}>
                     </app-multi-select>
                 </div>}
 

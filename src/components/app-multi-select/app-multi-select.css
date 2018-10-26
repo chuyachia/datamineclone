@@ -37,12 +37,7 @@ li {
     background-color:var(--app-black);
     color:white;
 }
-.multi-select-option {
-    display:none;
-    width:100%;
-    position:absolute;
-    z-index:5;
-}
+
 .showdropdonw {
     display:block;
 }

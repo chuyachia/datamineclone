@@ -8,20 +8,27 @@ import { Component, Prop,  Event, EventEmitter, Element } from '@stencil/core';
 
 export class AppMultiSelect {
     @Element() el: HTMLElement;
+    @Prop() id:string;
     @Prop() selectedItems: string[]=[];
     @Prop() options:string[]=[];
-    @Prop() optionsLength:number;
-    @Prop() show:boolean;
     @Prop() focusInput:boolean;
     @Event() newSelect:EventEmitter;
     @Event() deleteSelect:EventEmitter;
     @Event() filterOptions:EventEmitter;
     @Event() inputFocus:EventEmitter;
     createSelected= (cat:string)=>(<li class="category-item">{cat}</li>)
-    creatOptions =(cat:string)=>(<option value={cat}>{cat}</option>)
+    creatOptions =(cat:string)=>(<option value={cat}/>)
     handleInput = (evt)=>{
-        var target = RegExp(evt.target.value,'i');
-        this.filterOptions.emit({data:target,id:this.el.id});
+        var target = evt.target.value;
+        if (this.options.indexOf(target)>=0) {
+            var indx = this.selectedItems.indexOf(target);
+            if (indx <0) {
+                this.newSelect.emit({data:target,id:this.el.id});
+            } else {
+                this.deleteSelect.emit({data:indx,id:this.el.id});
+            }
+            evt.target.value="";
+        }
     }
     handleDelete =(evt)=>{
         var key = evt.keyCode || evt.charCode;
@@ -29,27 +36,9 @@ export class AppMultiSelect {
         if( (key == 8 || key == 46) &&textInput.value=="")
         this.deleteSelect.emit({data:this.selectedItems.length-1,id:this.el.id});
     }
-    handleSelection=(evt)=>{
-        // fired twice?
-        var target = evt.target.value;
-        var indx = this.selectedItems.indexOf(target);
-        if (indx <0) {
-            this.newSelect.emit({data:target,id:this.el.id});
-        } else {
-            this.deleteSelect.emit({data:indx,id:this.el.id});
-        }
-        var selectElement = this.el.shadowRoot.querySelector(".multi-select-option") as HTMLInputElement;
-        var options = selectElement.children;
-        for (var i = 0;i<options.length;i++){
-            var el = options[i] as HTMLOptionElement;
-            el.selected=false;
-        }
-        //selectElement.value="";
-    }
     handleClick=()=>{
-        if (!this.show) {
-            this.inputFocus.emit({id:this.el.id});
-        }
+        this.inputFocus.emit({id:this.el.id});
+
     }
     componentDidUpdate(){
         if (this.focusInput) {
@@ -63,14 +52,13 @@ export class AppMultiSelect {
                     <ul onClick={this.handleClick} >
                         {this.selectedItems.map(this.createSelected)}
                         <li><input class="text-input" type="text" 
+                        list={this.id}
                         onInput={this.handleInput} 
                         onKeyDown={this.handleDelete}/></li>
                     </ul>
-                    <select class={`multi-select-option ${this.show?'showdropdonw':''}`}
-                    size={this.optionsLength}
-                    onChange={this.handleSelection}>
+                    <datalist id = {this.id}>
                         {this.options.map(this.creatOptions)}
-                    </select >
+                    </datalist>
                 </div>            
             )
     }
